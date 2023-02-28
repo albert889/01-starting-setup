@@ -6,6 +6,7 @@ import ExpensesFilter from "./ExpensesFilter";
 
 function ExpenseList(props) {  
   const selectedYearHandler = (selectedYear) => {    
+    console.log("ExpenseList.js")
     console.log(selectedYear);    
   };  
   
