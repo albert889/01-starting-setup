@@ -9,6 +9,7 @@ function ExpenseList(props) {
 
   const selectedYearHandler = (selectedYear) => {
     setSelectedYear(selectedYear);
+
     console.log(selectedYear);
   };
 
@@ -19,14 +20,18 @@ function ExpenseList(props) {
           selectedYear={selectedYear}
           onSelectedYear={selectedYearHandler}
         />
-        {props.expenses.map((expense) => (
-          <ExpenseItem
-            key={expense.id}
-            title={expense.title}
-            amount={expense.amount}
-            date={expense.date}
-          />
-        ))}
+        {props.expenses
+          .filter(
+            (expense) => expense.date.getFullYear() === parseInt(selectedYear)
+          )
+          .map((expense) => (
+            <ExpenseItem
+              key={expense.id}
+              title={expense.title}
+              amount={expense.amount}
+              date={expense.date}
+            />
+          ))}
       </Card>
     </div>
   );
