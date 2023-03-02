@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./Expenses.css";
-import ExpenseItem from "./ExpenseItem";
 import Card from "../UI/Card";
 import ExpensesFilter from "./ExpensesFilter";
+import ExpensesList from "./ExpensesList";
 
 function Expenses(props) {
   const [selectedYear, setSelectedYear] = useState("2022");
@@ -15,55 +15,15 @@ function Expenses(props) {
   const filteredExpenses = props.expenses.filter((expense) => {
     return expense.date.getFullYear().toString() === selectedYear;
   });
-
-  // efficient solution for outputting conditional content
-  let expensesContent = <p>No expenses found.</p>;
-
-  if (filteredExpenses.length > 0) {
-    expensesContent = filteredExpenses.map((expense) => (
-      <ExpenseItem
-        key={expense.id}
-        title={expense.title}
-        amount={expense.amount}
-        date={expense.date}
-      />
-    ));
-  }
-
+  
   return (
     <div>
-      <Card className="expenses-list">
+      <Card className="expenses">
         <ExpensesFilter
           selectedYear={selectedYear}
           onSelectedYear={selectedYearHandler}
         />
-        {expensesContent}
-        
-        {/* abusing javascript solution */}
-        {/* {filteredExpenses.length === 0 && <p>No expenses found.</p>}
-        {filteredExpenses.length > 0 &&
-          filteredExpenses.map((expense) => (
-            <ExpenseItem
-              key={expense.id}
-              title={expense.title}
-              amount={expense.amount}
-              date={expense.date}
-            />
-          ))} */}
-
-        {/* using ternary operator */}
-        {/* {filteredExpenses.length === 0 ? (
-          <p>No expenses found.</p>
-        ) : (
-          filteredExpenses.map((expense) => (
-            <ExpenseItem
-              key={expense.id}
-              title={expense.title}
-              amount={expense.amount}
-              date={expense.date}
-            />
-          ))
-        )} */}
+        <ExpensesList items={filteredExpenses}/>            
       </Card>
     </div>
   );
